@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Provides an custom login for interview booking system.
+ */
+
+function my_module_login_register_menu() {
+  $items = array();
+
+  $items['login-register'] = array(
+    'type' => MENU_CALLBACK,
+    'page callback' => 'my_module_login_register_page',    
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+function my_module_login_register_page() {
+  $page = array();
+
+  drupal_set_title('Login or Register');
+
+  $login_form = drupal_get_form('user_login');
+  $reg_form = drupal_get_form('user_register_form');   
+
+  $page = array(
+    'output' => array(
+      '#type' => 'markup',
+      '#markup' => theme(
+        'my_module_login_register_page',
+        array(
+          'login' => drupal_render($login_form),
+          'register' => drupal_render($reg_form),          
+        )
+      )
+    ),
+  );
+
+  return $page;
+}
+
+function my_module_login_register_theme($existing, $type, $theme, $path) {
+  return array(
+    'my_module_login_register_page' => array(
+      'path' => drupal_get_path('module', 'my_module_login_register') . '/templates',
+      'template' => 'page--my-module-login-register',
+      'variables' => array(                 
+        'login' => NULL,
+        'register' => NULL,
+      ),
+    ),
+  );
+}

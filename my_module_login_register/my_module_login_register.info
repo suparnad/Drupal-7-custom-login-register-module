@@ -1,0 +1,4 @@
+name = Custom Login Register
+description = "Provides a custom login and register page for my website."
+core = 7.x
+dependencies[] = user
